@@ -1,0 +1,71 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #2a2a2a;
+}
+
+/* Header */
+header {
+    background-color: #006400; /* Verde oscuro */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Dieta Section */
+.dietas {
+    padding: 40px 0;
+    background-color: #222222; /* Negro */
+    color: white;
+}
+
+.dieta-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 45%;
+}
+
+.card h3 {
+    color: #00FF00; /* Verde claro */
+}
+
+.card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card ul li {
+    margin: 5px 0;
+}
+
+/* Footer */
+footer {
+    background-color: #006400; /* Verde oscuro */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 40px;
+}

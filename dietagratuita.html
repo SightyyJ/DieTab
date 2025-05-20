@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dieta Personalizada con IA</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dieta Personalizada</h1>
+    <form id="formulario">
+        <input type="number" id="peso" placeholder="Peso (kg)" required>
+        <input type="number" id="talla" placeholder="Talla (cm)" required>
+        <input type="number" id="edad" placeholder="Edad (años)" required>
+        <select id="enfermedad" required>
+            <option value="">Selecciona enfermedad</option>
+            <option value="ninguna">Ninguna</option>
+            <option value="diabetes">Diabetes</option>
+            <option value="hipertension">Hipertensión</option>
+            <option value="obesidad">Obesidad</option>
+            <option value="cardiaca">Enfermedad Cardiaca</option>
+        </select>
+        <button type="button" onclick="generarDieta()">Generar Dieta</button>
+    </form>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+function generarDieta() {
+    const peso = parseFloat(document.getElementById("peso").value);
+    const talla = parseFloat(document.getElementById("talla").value) / 100; // convertimos a metros
+    const edad = parseInt(document.getElementById("edad").value);
+    const enfermedad = document.getElementById("enfermedad").value;
+    const imc = peso / (talla * talla);
+
+    let resultado = `<h2>Tu Plan de Dieta Personalizada</h2>`;
+    resultado += `<p><strong>IMC:</strong> ${imc.toFixed(2)} (${clasificarIMC(imc)})</p>`;
+    resultado += `<p><strong>Edad:</strong> ${edad} años</p>`;
+
+    // Base general según IMC
+    if (imc < 18.5) {
+        resultado += "<p>Debes aumentar masa muscular. Dieta alta en calorías saludables:</p><ul><li>Comidas 5-6 veces al día</li><li>Proteínas como huevo, pollo, pescado</li><li>Carbohidratos integrales</li><li>Frutas y frutos secos</li></ul>";
+    } else if (imc >= 18.5 && imc < 25) {
+        resultado += "<p>Estás en un peso saludable. Dieta de mantenimiento:</p><ul><li>Balance 50% verduras, 25% proteínas, 25% carbohidratos</li><li>Beber 2L de agua diaria</li><li>Actividad física moderada</li></ul>";
+    } else if (imc >= 25 && imc < 30) {
+        resultado += "<p>Sobrepeso detectado. Dieta controlada:</p><ul><li>Reducir azúcares y grasas</li><li>Frutas, verduras y proteínas magras</li><li>Ejercicio aeróbico recomendado</li></ul>";
+    } else {
+        resultado += "<p>Obesidad detectada. Dieta estricta:</p><ul><li>Bajo en carbohidratos simples</li><li>Rico en vegetales y proteínas magras</li><li>Actividad física diaria bajo supervisión médica</li></ul>";
+    }
+
+    // Ajustes especiales según enfermedad
+    if (enfermedad !== "ninguna") {
+        resultado += "<h3>Recomendaciones por Enfermedad:</h3>";
+        switch (enfermedad) {
+            case "diabetes":
+                resultado += "<ul><li>Evitar azúcares refinados</li><li>Incluir fibra y granos enteros</li><li>Comidas pequeñas cada 3 horas</li></ul>";
+                break;
+            case "hipertension":
+                resultado += "<ul><li>Reducir sodio (sal)</li><li>Frutas y verduras frescas</li><li>Evitar comidas procesadas</li></ul>";
+                break;
+            case "obesidad":
+                resultado += "<ul><li>Déficit calórico controlado</li><li>Ejercicio diario (consultar médico)</li><li>Comer porciones pequeñas</li></ul>";
+                break;
+            case "cardiaca":
+                resultado += "<ul><li>Dieta baja en grasas saturadas</li><li>Más pescado, menos carne roja</li><li>Omega 3 y verduras verdes</li></ul>";
+                break;
+        }
+    }
+
+    document.getElementById("resultado").innerHTML = resultado;
+}
+
+function clasificarIMC(imc) {
+    if (imc < 18.5) return "Bajo peso";
+    if (imc >= 18.5 && imc < 25) return "Peso normal";
+    if (imc >= 25 && imc < 30) return "Sobrepeso";
+    return "Obesidad";
+}
+</script>
+
+</body>
+</html>
